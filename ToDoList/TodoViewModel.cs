@@ -72,7 +72,6 @@ namespace ToDoList
             var loadedTodos = JsonSerializer.Deserialize<List<TodoItem>>(jsonTodos);
             TodoItems = new ObservableCollection<TodoItem>(loadedTodos);
 
-            // Подписываемся на изменения в загруженных элементах
             foreach (var todo in TodoItems)
             {
                 todo.PropertyChanged += Todo_PropertyChanged;
@@ -85,7 +84,7 @@ namespace ToDoList
                 return;
 
             var newTodo = new TodoItem { Text = NewTodoText };
-            newTodo.PropertyChanged += Todo_PropertyChanged; // Подписываемся на изменения
+            newTodo.PropertyChanged += Todo_PropertyChanged;
             TodoItems.Add(newTodo);
             NewTodoText = string.Empty;
             SaveTodos();
@@ -114,6 +113,7 @@ namespace ToDoList
             {
                 item.Text = result;
                 SaveTodos();
+                LoadTodos();
             }
         }
 
